@@ -155,6 +155,9 @@ def parse_aggsig(args: SExp) -> List[bytes]:
         raise ValidationError(Err.INVALID_CONDITION)
     if len(message) > 1024:
         raise ValidationError(Err.INVALID_CONDITION)
+    # agg sig conditions only take 2 parameters
+    if args.rest() is not None:
+        raise ValidationError(Err.INVALID_CONDITION)
     return [pubkey, message]
 
 
